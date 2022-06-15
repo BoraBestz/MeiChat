@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mei Chat</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+    <script>
+        $(()=>{
+            var person = prompt("กรุณากรอกชื่อของคุณ:");
+            var socket = io();
+
+            $('form').submit(()=>{
+                socket.emit('chat message',person +": " + $('#m').val())
+                $("#m").val('');
+                return false;
+            })
+
+            socket.on('chat message', (msg)=>{
+                $('#messages').append($('<li>').text(msg));
+            })
+
+        });
+    </script>
+    <style>
+        
+        body{
+            background-image: url("https://png.pngtree.com/thumb_back/fw800/background/20190223/ourmid/pngtree-romantic-fresh-snow-landscape-advertising-background-backgroundhousessnow-spotsnowsnowflaketreesplantsimplehand-painted-image_78160.jpg");
+            background-attachment: fixed;
+            background-size: 100%;
+        }
+        .MeiChat{
+            color: rgba(196, 47, 72, 0.966);
+            text-align:right;
+            font-size: 95px;
+
+        }
+        div.Chatbox{
+            margin: 10px;
+            width: 1920px;
+            height: 820px;
+            overflow: scroll;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font: 40px Helvetica, Arial; }
+        #message li:nth-child(odd) {background: blue;}
+        form { background:green; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+        #messages li {padding: 10px 450px; color:rgb(0, 0, 0);}
+        form input {border: 0; padding: 20px; width: 90%; margin-right: .5%; }
+        #messages {list-style: none; margin: 0; padding: 0;}
+        form button {width: 9%; background: pink; border: none; padding: 20px;}
+
+    </style>
+</head>
+<body>
+    <div class="MeiChat">
+        <t1 >MeiChat</t1>
+    </div>
+    <div class="Chatbox">
+        <ul id="messages"></ul>
+    </div>
+    <form action="">
+        <input id="m" autocomplete="off" placeholder="Aa"/><button>Send</button>
+    </form>
+</body>
+</html>
